@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-base: #080c16;
+    --card-base: #0d1424;
+    --border-subtle: #1a253c;
+    --border-hover: #2a3a5c;
+  }
+
+  body {
+    background-color: #070b14;
+    color: #e2e8f0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.01em;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(30, 58, 138, 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(14, 165, 233, 0.08), transparent);
+    background-attachment: fixed;
+  }
+
+  /* Display Scales */
+  html.scale-standard,
+  .scale-standard {
+    font-size: 15px;
+  }
+  html.scale-large,
+  .scale-large {
+    font-size: 16px;
+  }
+  html.scale-xl,
+  .scale-xl {
+    font-size: 17px;
+  }
+
+  /* Executive precision scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #070b14;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+  }
+}
+
+/* Institutional Grade Enterprise Card */
+.enterprise-card {
+  background-color: #0d1424;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid #1a253c;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.enterprise-card:hover {
+  border-color: #273754;
+  box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.enterprise-interactive {
+  background-color: #10192e;
+  border: 1px solid #1c2942;
+  transition: all 0.15s ease;
+}
+
+.enterprise-interactive:hover {
+  background-color: #14203b;
+  border-color: #2b3e66;
+}
+
+/* Precision Enterprise Buttons */
+.btn-primary {
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-secondary {
+  background-color: #111a2e;
+  color: #cbd5e1;
+  font-weight: 500;
+  border: 1px solid #1e2c47;
+  transition: all 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #16223b;
+  color: #ffffff;
+  border-color: #2a3d63;
+}
+
+/* Metric / Tabular Figures */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}

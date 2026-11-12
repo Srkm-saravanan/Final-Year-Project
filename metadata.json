@@ -1,0 +1,6 @@
+{
+  "name": "CORTEX Enterprise Decision Intelligence Platform",
+  "description": "AI-powered decision intelligence platform featuring executive overview, data explorer, multi-agent workspace, GraphRAG knowledge graph, forecasting, scenario simulator, recommendations, and administration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,402 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// Authentication & RBAC Models
+// ============================================================================
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String           @unique // Admin | Analyst | Executive | Viewer
+  description String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  users       User[]
+  permissions RolePermission[]
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  key         String           @unique // e.g., "scenarios:write", "settings:write"
+  description String
+  createdAt   DateTime         @default(now())
+  roles       RolePermission[]
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  assignedAt   DateTime   @default(now())
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+model User {
+  id              String    @id @default(cuid())
+  name            String
+  email           String    @unique
+  passwordHash    String
+  roleId          String
+  status          String    @default("Active") // Active | Invited | Suspended
+  lastActiveLabel String    @default("Just now")
+  lastLoginAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  role                   Role             @relation(fields: [roleId], references: [id])
+  refreshTokens          RefreshToken[]
+  createdDataSources     DataSource[]
+  chatSessions           ChatSession[]
+  savedScenarios         SavedScenario[]
+  updatedRecommendations Recommendation[]
+  auditLogs              AuditLog[]
+  updatedSystemSettings  SystemSetting[]
+
+  @@index([roleId])
+  @@index([status])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ============================================================================
+// Data Fabric & Explorer Models
+// ============================================================================
+
+model DataSource {
+  id           String   @id @default(cuid())
+  name         String
+  type         String   // ERP | Database | CRM | Supply Chain | HR | Market Research | External Data | Custom
+  status       String   // Connected • Live | Connected • Daily | Connected • Monthly | Syncing
+  recordsCount String
+  lastUpdated  String
+  category     String   // Finance | Operations | Customers | Supply Chain | HR
+  fileName     String?
+  columns      String[] @default([])
+  createdById  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  createdBy    User?           @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  salesRecords SalesRecord[]
+  customRows   DatasetRecord[]
+
+  @@index([category])
+  @@index([type])
+}
+
+model SalesRecord {
+  id           String   @id @default(cuid())
+  dataSourceId String
+  date         String
+  region       String
+  product      String
+  category     String
+  quantity     Int
+  revenue      Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  dataSource DataSource @relation(fields: [dataSourceId], references: [id], onDelete: Cascade)
+
+  @@index([dataSourceId])
+  @@index([region])
+  @@index([date])
+}
+
+model DatasetRecord {
+  id           String   @id @default(cuid())
+  dataSourceId String
+  rowIndex     Int
+  data         Json
+  createdAt    DateTime @default(now())
+
+  dataSource DataSource @relation(fields: [dataSourceId], references: [id], onDelete: Cascade)
+
+  @@unique([dataSourceId, rowIndex])
+  @@index([dataSourceId])
+}
+
+// ============================================================================
+// AI Agents, Chat History & Knowledge Graph Metadata (No LLM/GraphRAG runtime)
+// ============================================================================
+
+model AiAgent {
+  id           String   @id
+  name         String
+  role         String
+  description  String
+  iconName     String
+  model        String
+  temperature  Float
+  status       String
+  tools        String[]
+  systemPrompt String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  title     String
+  dateLabel String
+  ownerId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner    User?         @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  messages ChatMessage[]
+
+  @@index([ownerId])
+}
+
+model ChatMessage {
+  id              String   @id @default(cuid())
+  sessionId       String
+  sequence        Int
+  sender          String   // user | assistant
+  content         String
+  timestampLabel  String
+  agentBreakdowns Json?
+  sources         String[] @default([])
+  recommendations String[] @default([])
+  createdAt       DateTime @default(now())
+
+  session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, sequence])
+}
+
+model KnowledgeGraphNode {
+  id               String   @id
+  label            String
+  type             String
+  category         String
+  x                Float?
+  y                Float?
+  vx               Float?
+  vy               Float?
+  description      String?
+  revenue          String?
+  employees        String?
+  industry         String?
+  locations        Int?
+  keyProducts      String[] @default([])
+  downstreamImpact String[] @default([])
+  connectedIds     String[] @default([])
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  outgoingEdges KnowledgeGraphEdge[] @relation("OutgoingEdges")
+  incomingEdges KnowledgeGraphEdge[] @relation("IncomingEdges")
+
+  @@index([type])
+}
+
+model KnowledgeGraphEdge {
+  id           String   @id
+  sourceId     String
+  targetId     String
+  relationship String
+  createdAt    DateTime @default(now())
+
+  sourceNode KnowledgeGraphNode @relation("OutgoingEdges", fields: [sourceId], references: [id], onDelete: Cascade)
+  targetNode KnowledgeGraphNode @relation("IncomingEdges", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@index([sourceId])
+  @@index([targetId])
+}
+
+// ============================================================================
+// Decision Support: Scenarios & Recommendations
+// ============================================================================
+
+model SavedScenario {
+  id               String   @id @default(cuid())
+  name             String
+  timestampLabel   String
+  priceChange      Float
+  marketingBudget  Float
+  productionVolume Float
+  staffingLevel    String
+  kpiRevenue       Float
+  kpiProfit        Float
+  kpiProfitMargin  Float
+  kpiMarketShare   Float
+  kpiRoi           Float
+  outlook          String
+  createdById      String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  createdBy User? @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([createdById])
+  @@index([createdAt])
+}
+
+model Recommendation {
+  id             String   @id @default(cuid())
+  priority       String
+  title          String
+  expectedImpact String
+  confidence     Int
+  category       String
+  status         String
+  timeHorizon    String
+  evidence       String[]
+  rationale      String
+  risks          String
+  updatedById    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  updatedBy User? @relation(fields: [updatedById], references: [id], onDelete: SetNull)
+
+  @@index([category])
+  @@index([status])
+}
+
+// ============================================================================
+// Governance: Audit Logs & System Settings
+// ============================================================================
+
+model AuditLog {
+  id             String   @id @default(cuid())
+  timestampLabel String
+  actorUserId    String?
+  userName       String
+  action         String
+  target         String
+  status         String   // Success | Warning | Pending
+  createdAt      DateTime @default(now())
+
+  actor User? @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([actorUserId])
+  @@index([createdAt])
+}
+
+model SystemSetting {
+  id                     String   @id @default("global")
+  automatedModelFailover Boolean  @default(true)
+  auditTrailArchival     Boolean  @default(true)
+  updatedById            String?
+  updatedAt              DateTime @updatedAt
+
+  updatedBy User? @relation(fields: [updatedById], references: [id], onDelete: SetNull)
+}
+
+// ============================================================================
+// Dashboard & Executive Telemetry Reference Models
+// ============================================================================
+
+model DashboardMetric {
+  id           String   @id
+  sortOrder    Int
+  label        String
+  value        String
+  change       String
+  isPositive   Boolean
+  history      Float[]
+  numericValue Float
+  unit         String
+  updatedAt    DateTime @updatedAt
+}
+
+model ExecutiveInsight {
+  id          String  @id
+  sortOrder   Int
+  title       String
+  description String
+  type        String
+  tag         String?
+}
+
+model TopOpportunity {
+  id        String @id
+  sortOrder Int
+  title     String
+  benefit   String
+  route     String
+}
+
+model KeyRisk {
+  id        String @id
+  sortOrder Int
+  title     String
+  level     String
+  action    String
+}
+
+model RecentRecommendation {
+  id        String @id
+  sortOrder Int
+  title     String
+  impact    String
+  date      String
+}
+
+model TrendRecord {
+  id        String @id
+  granularity String // monthly | quarterly
+  sortOrder Int
+  label     String
+  rev       Float
+  profit    Float
+
+  @@index([granularity, sortOrder])
+}
+
+model ForecastPoint {
+  id        String @id
+  kind      String // historical | projected
+  sortOrder Int
+  label     String
+  val       Float
+  low       Float?
+  high      Float?
+
+  @@index([kind, sortOrder])
+}
+
+model ForecastDriver {
+  id        String @id
+  sortOrder Int
+  label     String
+  lift      String
+  width     String
+}
+
+model PresentationSlide {
+  id            Int     @id
+  title         String
+  category      String
+  subtitle      String
+  layoutTip     String
+  content       String[]
+  tableData     Json?
+  asciiDiagram  String?
+  speakerScript String
+}
+
