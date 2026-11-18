@@ -1,0 +1,121 @@
+{
+  "trained_at": "2026-11-18T15:31:56.713610+00:00",
+  "artifacts_dir": "intelligence/artifacts/models",
+  "models": {
+    "delivery_delay_classifier": {
+      "task": "Binary Classification (Late Delivery Risk)",
+      "target": "late_delivery_risk (1=Late, 0=On-Time)",
+      "test_split_type": "Chronological Out-Of-Sample (15% held-out)",
+      "test_samples": 27078,
+      "metrics": {
+        "baseline_dummy": {
+          "model_type": "DummyClassifier(most_frequent)",
+          "accuracy": 0.5501883447817416,
+          "precision": 0.5501883447817416,
+          "recall": 1.0,
+          "f1": 0.7098341909662664,
+          "roc_auc": 0.5,
+          "pr_auc": 0.5501883447817416
+        },
+        "baseline_logistic_regression": {
+          "model_type": "LogisticRegression(L2, balanced)",
+          "accuracy": 0.692111677376468,
+          "precision": 0.8449164125749132,
+          "recall": 0.5394012619143509,
+          "f1": 0.6584456552910811,
+          "roc_auc": 0.7350759190960491,
+          "pr_auc": 0.8017529544455158
+        },
+        "advanced_gradient_boosting": {
+          "model_type": "LightGBM / HistGradientBoosting",
+          "accuracy": 0.7201787428909078,
+          "precision": 0.8530234352396566,
+          "recall": 0.5937038528661566,
+          "f1": 0.7001226896742787,
+          "roc_auc": 0.7623874833817965,
+          "pr_auc": 0.8197513947372033
+        }
+      }
+    },
+    "stockout_risk_classifier": {
+      "task": "Binary Classification (Inventory Stockout Risk)",
+      "target": "stockout_risk (1=At Risk, 0=Sufficient Buffer)",
+      "test_split_type": "Stratified Test Split (25% held-out)",
+      "test_samples": 59,
+      "metrics": {
+        "baseline_dummy": {
+          "model_type": "DummyClassifier(most_frequent)",
+          "accuracy": 0.6440677966101694,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "roc_auc": 0.5,
+          "pr_auc": 0.3559322033898305
+        },
+        "baseline_logistic_regression": {
+          "model_type": "LogisticRegression(L2, balanced)",
+          "accuracy": 0.9830508474576272,
+          "precision": 0.9545454545454546,
+          "recall": 1.0,
+          "f1": 0.9767441860465116,
+          "roc_auc": 1.0,
+          "pr_auc": 1.0000000000000002
+        },
+        "advanced_random_forest": {
+          "model_type": "RandomForestClassifier",
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "roc_auc": 1.0,
+          "pr_auc": 1.0
+        }
+      }
+    },
+    "demand_forecast_engine": {
+      "task": "Multi-Horizon Time Series Demand Forecasting (7d, 30d, 90d)",
+      "target": "daily_units",
+      "test_split_type": "Chronological 90-Day Forward Window",
+      "test_samples": 90,
+      "residual_std": 2.601168631772629,
+      "metrics": {
+        "baseline_moving_average_7d": {
+          "model_type": "7-Day Moving Average",
+          "mae": 0.5714285714285694,
+          "rmse": 0.5714285714285694,
+          "wape": 0.008342022940563057
+        },
+        "baseline_moving_average_30d": {
+          "model_type": "30-Day Moving Average",
+          "mae": 0.5,
+          "rmse": 0.5,
+          "wape": 0.0072992700729927005
+        },
+        "model_ridge_regression": {
+          "model_type": "Autoregressive Ridge Regression",
+          "mae": 14.879357031981517,
+          "rmse": 15.328454554058043,
+          "wape": 0.21721689097783237
+        },
+        "gradient_boosting_7d": {
+          "model_type": "HistGradientBoostingRegressor (7-Day)",
+          "mae": 2.819039081388238,
+          "rmse": 3.093999006018347,
+          "wape": 0.041110986603578474
+        },
+        "gradient_boosting_30d": {
+          "model_type": "HistGradientBoostingRegressor (30-Day)",
+          "mae": 2.950724920708916,
+          "rmse": 3.560327014351214,
+          "wape": 0.043076276214728704
+        },
+        "gradient_boosting_90d": {
+          "model_type": "HistGradientBoostingRegressor (90-Day)",
+          "mae": 3.1551726706296246,
+          "rmse": 3.752951986412797,
+          "wape": 0.04606091489970255
+        }
+      }
+    }
+  }
+}

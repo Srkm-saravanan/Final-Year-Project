@@ -41,6 +41,8 @@ const envSchema = z.object({
     .string()
     .min(8, 'SEED_DEFAULT_USER_PASSWORD must be at least 8 characters')
     .optional(),
+  INTELLIGENCE_SERVICE_URL: z.string().url().default('http://127.0.0.1:8001'),
+  INTELLIGENCE_API_KEY: z.string().default(''),
 });
 
 const parsed = envSchema.safeParse(process.env);

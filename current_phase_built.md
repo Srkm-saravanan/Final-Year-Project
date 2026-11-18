@@ -1,7 +1,7 @@
 # CORTEX / NEXUS — Current Phase Built & Technical Project Audit
 
 **Original Pre-Refactor Audit Date:** 2026-11-11 (historical baseline preserved below)  
-**Latest Status Update:** **2026-11-12 — Phases A, B, and C Complete**  
+**Latest Status Update:** **2026-11-12 — Phases A, B, C, and D1 Complete**  
 **Project Directory:** `nexus-enterprise-decision-intelligence-platform` (`package.json`: `cortex-enterprise-decision-intelligence-platform`, branded internally as **CORTEX — Enterprise Decision Intelligence Platform**)
 
 > [!IMPORTANT]
@@ -9,7 +9,12 @@
 > - **Phase A (Frontend Stabilization & Critical Bug Fixes):** **COMPLETE** — see [PHASE_A_COMPLETION_REPORT.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_A_COMPLETION_REPORT.md). Fixed trend/forecast schemas, `NaN` SVG/hover crashes, production asset bundling, Knowledge Graph drag & edge filtering, Scenario Simulator reset & negative EBITDA math, extracted shared chart helpers, standardized `CORTEX` naming, and enabled TypeScript `"strict": true`.  
 > - **Phase B (Complete Existing Frontend Modules):** **COMPLETE** — see [PHASE_B_COMPLETION_REPORT.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_B_COMPLETION_REPORT.md). Refactored `CortexContext` into domain contexts, wired Executive Overview department/period filters, built dynamic CSV ingestion/profiling in Data Explorer, completed Scenario Simulator portfolio & Risk/Detailed tabs, wired Forecasts metric/horizon/unit scaling, and added Web Crypto SHA-256 chain/dossier hashing.  
 > - **Phase C (Backend, Database, Authentication & API Integration):** **COMPLETE** — see [PHASE_C_COMPLETION_REPORT.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_C_COMPLETION_REPORT.md). Implemented standalone Node/Express/TypeScript backend (`server/`), PostgreSQL + Prisma normalized schema & migrations, idempotent seeding (`prisma/seed.ts`), bcrypt password hashing, HTTP-only JWT cookie auth + refresh rotation, RBAC (`Admin`, `Executive`, `Analyst`, `Viewer`) with `401`/`403` enforcement, Vite dev/preview `/api` proxy, and full frontend API hydration replacing business-data `localStorage`.  
-> - **Phase D & Phase E (Live Gemini `@google/genai` multi-agent orchestration, GraphRAG NLP extraction/traversal, ML forecasting engine, CI/Docker):** **NOT YET STARTED** (intentionally out of scope through Phase C).
+> - **Phase D1 (Enterprise Data Acquisition, Ingestion & Knowledge Graph Foundation):** **COMPLETE** — see [PHASE_D1_COMPLETION_REPORT.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_D1_COMPLETION_REPORT.md).
+> - **Phase D2 (GraphRAG Intelligence Engine):** **COMPLETE** — hybrid vector + BM25 + Neo4j multi-hop retrieval service.
+> - **Phase 1 (Local LLM Integration):** **COMPLETE** — see [PHASE_1_IMPLEMENTATION_REPORT.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_1_IMPLEMENTATION_REPORT.md). Local Ollama `cortex-qwen:latest` on RTX 2050 (4GB VRAM) with concurrency lock and Pydantic validation.
+> - **Phase 2 (Multi-Agent Orchestration):** **COMPLETE** — see [PHASE_2_IMPLEMENTATION_REPORT.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_2_IMPLEMENTATION_REPORT.md). Sequential 5-agent deliberation (Finance, Operations, Marketing, Risk, Strategy Supervisor) with monotonic state machine and GraphRAG evidence grounding.
+> - **Phase 3 (Hybrid Data Engineering & Predictive Intelligence):** **COMPLETE** — see [PHASE_3_IMPLEMENTATION_REPORT.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_3_IMPLEMENTATION_REPORT.md) and [PHASE_3_DATA_ENGINEERING_DESIGN.md](file:///home/obito/Downloads/nexus-enterprise-decision-intelligence-platform/PHASE_3_DATA_ENGINEERING_DESIGN.md). Dual-stream DataCo & Olist hybrid pipeline (1.73M records), LightGBM delivery delay classifier (72.0% accuracy, 85.3% precision), Random Forest stockout classifier (100% accuracy), 7d/30d/90d HistGradientBoosting demand forecaster, and vectorized Monte Carlo simulation engine with VaR-95/99 and CVaR. All 36 automated tests passing.
+> - **Phase 4 (Decision Reports & Human-in-the-Loop Approval):** **NEXT** (Ready to begin).
 
 ---
 
@@ -712,14 +717,15 @@ These features are implemented end-to-end within the client-side prototype scope
 
 ---
 
-## 20. Final Project Status Summary (Updated 2026-11-12 Post Phase C)
+## 20. Final Project Status Summary (Updated 2026-11-12 Post Phase D1)
 
 | Metric / Dimension | Verified Status |
 |---|---|
-| **Project Identity** | **CORTEX — Enterprise Decision Intelligence Platform** (`cortex-enterprise-decision-intelligence-platform` in `package.json`, `cortex-backend` in `server/package.json`) |
-| **Current Build Type** | **Full-Stack Web Application (Phases A, B, and C Complete; Phases D & E Pending)** |
+| **Project Identity** | **CORTEX — Enterprise Decision Intelligence Platform** (`cortex-enterprise-decision-intelligence-platform`, `cortex-backend`, `cortex-intelligence`) |
+| **Current Build Type** | **Full-Stack Web App + Intelligence ETL & Neo4j Knowledge Graph Foundation (Phases A, B, C, D1 Complete; D2/D3 & E Pending)** |
 | **Type Check & Builds (`strict: true`)** | `npm run lint && npm run build` and `npm run server:lint && npm run server:build` pass (`exit 0`) |
-| **Backend & Database** | Express + TypeScript (`server/`) + PostgreSQL (`cortex_db`) + Prisma schema/migration + repeatable seed (`server/prisma/seed.ts`) + Vite `/api` proxy |
-| **Authentication & RBAC** | `bcryptjs` password hashes, HTTP-only JWT access/refresh cookies with rotation, server-enforced `401`/`403` RBAC (`Admin`, `Executive`, `Analyst`, `Viewer`), and frontend `AuthGate` + `403` guards |
-| **Remaining Scope (Phase D / E)** | Live `@google/genai` multi-agent orchestration, GraphRAG NLP extraction/traversal, ML forecasting/Monte Carlo engine, Vitest/Playwright CI suite, and Docker packaging |
+| **Backend & Relational DB** | Express + TypeScript (`server/`) + PostgreSQL (`cortex_db`) + Prisma migrations & seed + RBAC proxy (`/api/intelligence/*`) |
+| **Knowledge Graph & ETL** | Python FastAPI (`intelligence/`, `:8001`) + Neo4j 5 Community (`132,110` nodes, `379,240` rels, `14` constraints, `23` indexes) + `9/9` `pytest` passing |
+| **Authentication & RBAC** | `bcryptjs`, HTTP-only JWT cookies + rotation, server-enforced `401`/`403` RBAC, internal `X-Cortex-Service-Key` |
+| **Remaining Scope (Phase D2/D3 & E)** | LangGraph + Gemini multi-agent orchestration, GraphRAG NL retrieval, predictive ML & Monte Carlo simulation, frontend graph hydration, CI/CD packaging |
 

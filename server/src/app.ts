@@ -9,6 +9,7 @@ import dashboardRoutes from './routes/dashboard.routes.js';
 import datasetRoutes from './routes/dataset.routes.js';
 import governanceRoutes from './routes/governance.routes.js';
 import healthRoutes from './routes/health.routes.js';
+import intelligenceRoutes from './routes/intelligence.routes.js';
 import recommendationRoutes from './routes/recommendation.routes.js';
 import scenarioRoutes from './routes/scenario.routes.js';
 import userRoutes from './routes/user.routes.js';
@@ -55,6 +56,7 @@ export function createApp() {
   app.use('/api/recommendations', recommendationRoutes);
   app.use('/api', governanceRoutes);
   app.use('/api/users', userRoutes);
+  app.use('/api/intelligence', intelligenceRoutes);
 
   app.use('/api', notFoundHandler);
   app.use(errorHandler);

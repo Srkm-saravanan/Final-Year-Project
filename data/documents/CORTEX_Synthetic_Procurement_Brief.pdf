@@ -1,0 +1,80 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 1150 >>
+stream
+BT
+/F1 10 Tf
+14 TL
+54 750 Td
+(CORTEX SYNTHETIC PROCUREMENT RISK BRIEF \(SYN-SUP-001 SCENARIO\)) Tj
+T* (Brief Date: 2018-01-30 | Data Origin: synthetic) Tj
+T* () Tj
+T* (Executive Summary:) Tj
+T* (During the January 2018 simulated procurement cycle, flagship Tier-1 supplier SYN-SUP-001) Tj
+T* (\(Synthetic Vendor 001 \(Primary Apparel & Footwear Hub\)\) recorded 15 delayed purchase orders) Tj
+T* (driven by port congestion, carrier backlog, and customs inspection holds.) Tj
+T* () Tj
+T* (Critical and High Delay Examples:) Tj
+T* (- SYN-PO-0001 \(10 days delay, Critical\): Destined for SYN-WH-001 \(Synthetic Warehouse USCA-West\),) Tj
+T* (  carrying Perfect Fitness Perfect Rip Deck \(dataco:prod:365\) with 128 shortage units.) Tj
+T* (- SYN-PO-0004 \(14 days delay, Critical\): Destined for SYN-WH-007 \(Synthetic Warehouse APAC-East\),) Tj
+T* (  carrying Nike Men's Free 5.0+ Running Shoe \(dataco:prod:191\) with 18 shortage units.) Tj
+T* (- SYN-PO-0008 \(14 days delay, Critical\): Destined for SYN-WH-003 \(Synthetic Warehouse Europe-Central\),) Tj
+T* (  carrying Pelican Sunstream 100 Kayak \(dataco:prod:1073\) with 128 shortage units.) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 1040 >>
+stream
+BT
+/F1 10 Tf
+14 TL
+54 750 Td
+(PAGE 2: WAREHOUSE REPLENISHMENT & MITIGATION CHECKLIST) Tj
+T* (Destination Hubs Receiving Delayed POs:) Tj
+T* (SYN-WH-001 \(USCA-West, 5 delayed POs\), SYN-WH-003 \(Europe-Central, 3 delayed POs\),) Tj
+T* (SYN-WH-005 \(LATAM-South, 4 delayed POs\), and SYN-WH-007 \(APAC-East, 3 delayed POs\).) Tj
+T* () Tj
+T* (Shortage Footprint Distinction:) Tj
+T* (Across all 8 network warehouses, SYN-SUP-001's 12 supplied SKUs exhibit 24 total below-safety-stock) Tj
+T* (inventory slots. Exactly 12 of those shortage slots are directly targeted by delayed POs via AFFECTS) Tj
+T* (edges \(including dataco:prod:502 at SYN-WH-005 via SYN-PO-0002 and SYN-PO-0014\).) Tj
+T* () Tj
+T* (Mitigation Checklist:) Tj
+T* (1. Trigger expedited allocation for delays >= 10 days \(Critical severity\).) Tj
+T* (2. Rebalance available stock from secondary holding hubs \(SYN-WH-002, SYN-WH-004, SYN-WH-006, SYN-WH-008\).) Tj
+T* (3. Keep synthetic simulation outputs strictly separated from DataCo 2015-2018 historical order records.) Tj
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000317 00000 n 
+0000001519 00000 n 
+0000001645 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+2737
+%%EOF

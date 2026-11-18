@@ -15,7 +15,12 @@
     "server:lint": "npm --prefix server run lint",
     "db:generate": "npm --prefix server run prisma:generate",
     "db:migrate": "npm --prefix server run prisma:migrate",
-    "db:seed": "npm --prefix server run prisma:seed"
+    "db:seed": "npm --prefix server run prisma:seed",
+    "neo4j:up": "docker --context default compose up -d neo4j",
+    "intelligence:install": "cd intelligence && uv pip install -e . --no-deps",
+    "intelligence:dev": "cd intelligence && .venv/bin/uvicorn cortex_intelligence.api.main:app --host 127.0.0.1 --port 8001 --reload",
+    "intelligence:ingest": "cd intelligence && .venv/bin/python -m cortex_intelligence.cli ingest --mode full",
+    "intelligence:test": "cd intelligence && .venv/bin/pytest -v"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-11-12T15:45:40Z",
+  "datasets": [
+    {
+      "dataset_id": "dataco-supply-chain-structured",
+      "dataset_name": "DataCo SMART SUPPLY CHAIN FOR BIG DATA ANALYSIS",
+      "original_url": "https://data.mendeley.com/datasets/8gx2fvg2k6/5",
+      "doi": "10.17632/8gx2fvg2k6.5",
+      "authors_or_publisher": [
+        "Fabian Constante",
+        "Fernando Silva",
+        "Ant\u00f3nio Pereira"
+      ],
+      "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "version": "5",
+      "acquisition_date": "2026-11-12T15:45:40Z",
+      "original_filename": "DataCoSupplyChainDataset.csv",
+      "local_relative_path": "data/raw/dataco/DataCoSupplyChainDataset.csv",
+      "file_size_bytes": 95910149,
+      "sha256_checksum": "fa6d022ed437155e1a2f0378710602848703c8a7f203f7ff5d77805bf8480aa6",
+      "data_origin": "public_open_dataset",
+      "processing_status": "ingested_to_neo4j",
+      "notes": "Primary Dataset A (180,519 rows x 53 columns, latin-1 encoding). PII fields removed during cleaning; post-outcome delivery fields separated from prediction features to prevent ML leakage."
+    },
+    {
+      "dataset_id": "dataco-variable-descriptions",
+      "dataset_name": "DataCo Variable Description Dictionary",
+      "original_url": "https://data.mendeley.com/datasets/8gx2fvg2k6/5",
+      "doi": "10.17632/8gx2fvg2k6.5",
+      "authors_or_publisher": [
+        "Fabian Constante",
+        "Fernando Silva",
+        "Ant\u00f3nio Pereira"
+      ],
+      "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "version": "5",
+      "acquisition_date": "2026-11-12T15:45:40Z",
+      "original_filename": "DescriptionDataCoSupplyChain.csv",
+      "local_relative_path": "data/raw/dataco/DescriptionDataCoSupplyChain.csv",
+      "file_size_bytes": 3444,
+      "sha256_checksum": "9828e34669bd6d77e3b4463364cc44a5d52446b5e246fc258758cfe592566c4b",
+      "data_origin": "public_open_dataset",
+      "processing_status": "validated_dictionary",
+      "notes": "Documents 52 variables; note column 'Order Zipcode' appears in the structured CSV (53 columns total) without a row in this dictionary."
+    },
+    {
+      "dataset_id": "dataco-tokenized-access-logs",
+      "dataset_name": "DataCo Tokenized Clickstream Access Logs",
+      "original_url": "https://data.mendeley.com/datasets/8gx2fvg2k6/5",
+      "doi": "10.17632/8gx2fvg2k6.5",
+      "authors_or_publisher": [
+        "Fabian Constante",
+        "Fernando Silva",
+        "Ant\u00f3nio Pereira"
+      ],
+      "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "version": "5",
+      "acquisition_date": null,
+      "original_filename": "tokenized_access_logs.csv",
+      "local_relative_path": null,
+      "file_size_bytes": 95446364,
+      "sha256_checksum": "7a4372df63a1e87f5add68bc036bb6064db09069998f25a679aec39f1a8d7765",
+      "data_origin": "public_open_dataset",
+      "processing_status": "evaluated_excluded_clickstream",
+      "notes": "Inspected header/sample (Product,Category,Date,Month,Hour,Department,ip,url). Contains anonymous web clickstream browsing logs without supplier, procurement, inventory, or order delivery delay linkage; excluded to avoid irrelevant graph noise."
+    },
+    {
+      "dataset_id": "hub-supply-chain-disruption-monitoring",
+      "dataset_name": "Supply Chain Disruption Monitoring Dataset",
+      "original_url": "https://supplychaindatahub.org/datasets/supply-chain-disruption/",
+      "doi": null,
+      "authors_or_publisher": [
+        "Sara Almahri",
+        "Liming Xu",
+        "Alexandra Brintrup"
+      ],
+      "license": "CC BY-NC 4.0 (Non-Commercial)",
+      "version": "2026-04-15 (GitHub main)",
+      "acquisition_date": null,
+      "original_filename": "supplychainKG_clean.csv",
+      "local_relative_path": null,
+      "file_size_bytes": 2041389,
+      "sha256_checksum": null,
+      "data_origin": "external_research",
+      "processing_status": "evaluated_excluded_optional",
+      "notes": "Linked repo github.com/sara-almahri/supply-chain-disruption-monitoring contains B2B heavy-industry triples (Oil & Gas, Steel) incompatible with DataCo retail product lines and carries CC BY-NC 4.0 non-commercial terms."
+    },
+    {
+      "dataset_id": "hub-anonnet",
+      "dataset_name": "AnonNet Dataset",
+      "original_url": "https://supplychaindatahub.org/datasets/anonnet/",
+      "doi": null,
+      "authors_or_publisher": [
+        "Liming Xu",
+        "Yunbo Long",
+        "Alexandra Brintrup"
+      ],
+      "license": "Unspecified (No LICENSE file in GitHub repo)",
+      "version": "2025 (MIM2025)",
+      "acquisition_date": null,
+      "original_filename": "mim2025_network_challenge",
+      "local_relative_path": null,
+      "file_size_bytes": null,
+      "sha256_checksum": null,
+      "data_origin": "external_research",
+      "processing_status": "evaluated_excluded_optional",
+      "notes": "Excluded: missing explicit repository license, anonymized topology lacks DataCo product catalog keys and procurement delay timestamps."
+    },
+    {
+      "dataset_id": "hub-syndelay",
+      "dataset_name": "SynDelay Dataset",
+      "original_url": "https://supplychaindatahub.org/datasets/syndelay/",
+      "doi": null,
+      "authors_or_publisher": [
+        "Liming Xu",
+        "Yunbo Long",
+        "Alexandra Brintrup"
+      ],
+      "license": "Unspecified (No LICENSE file in GitHub repo)",
+      "version": "v1 (MIM2025)",
+      "acquisition_date": null,
+      "original_filename": "syndelay_v1.csv",
+      "local_relative_path": null,
+      "file_size_bytes": 56309566,
+      "sha256_checksum": null,
+      "data_origin": "synthetic",
+      "processing_status": "evaluated_excluded_optional",
+      "notes": "Excluded: generative clone of DataCo columns using noisy floating-point IDs/Excel dates (e.g. customer_id=12446.5625), missing supplier entities and explicit repository license."
+    },
+    {
+      "dataset_id": "cortex-mock-demonstration",
+      "dataset_name": "CORTEX Phase A-C Demonstration Dataset & Seed Entities",
+      "original_url": "local://mock-data.json",
+      "doi": null,
+      "authors_or_publisher": [
+        "CORTEX Capstone Project Team"
+      ],
+      "license": "Internal Academic Project (Apache-2.0 metadata)",
+      "version": "Phase C Baseline",
+      "acquisition_date": "2026-11-12T15:45:40Z",
+      "original_filename": "mock-data.json",
+      "local_relative_path": "mock-data.json",
+      "file_size_bytes": 53376,
+      "sha256_checksum": "1589026e1ae3cfeb013dfb9cc4821ae54c4313415d36ad9eaf0fc1f963cf21a5",
+      "data_origin": "demonstration",
+      "processing_status": "ingested_to_neo4j",
+      "notes": "Strictly tagged data_origin='demonstration' and namespaced with 'demo:' entity IDs so demonstration entities never co-mingle with real DataCo records."
+    },
+    {
+      "dataset_id": "cortex-synthetic-procurement",
+      "dataset_name": "CORTEX Reproducible Synthetic Procurement & Inventory Extension",
+      "original_url": "local://intelligence/src/cortex_intelligence/generators/synthetic_procurement.py",
+      "doi": null,
+      "authors_or_publisher": [
+        "CORTEX Phase D1 Pipeline"
+      ],
+      "license": "Project-internal reproducible generator",
+      "version": "seed-20261112",
+      "acquisition_date": "2026-11-12T15:45:40Z",
+      "original_filename": "manifest.json",
+      "local_relative_path": "data/processed/synthetic_procurement/manifest.json",
+      "file_size_bytes": 1016,
+      "sha256_checksum": "ab9a511f6481f56c3e798c689cc6a6e2c3735a7a48ab69edaf5d96346a856d86",
+      "data_origin": "synthetic",
+      "processing_status": "ingested_to_neo4j",
+      "notes": "Deterministic generator (seed=20261112) anchoring synthetic Suppliers, Warehouses, Inventory, PurchaseOrders, and DelayEvents to verified DataCo Product & Region keys."
+    }
+  ]
+}

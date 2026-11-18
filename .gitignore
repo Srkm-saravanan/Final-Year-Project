@@ -6,3 +6,18 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Phase D1: Large raw/processed datasets, virtualenvs & Neo4j runtime data
+data/raw/
+data/processed/
+data/staging/
+.venv/
+intelligence/.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+neo4j/data/
+neo4j/logs/
+
+# Python packaging metadata
+*.egg-info/

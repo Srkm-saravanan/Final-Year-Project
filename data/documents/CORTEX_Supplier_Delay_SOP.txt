@@ -1,0 +1,18 @@
+CORTEX ENTERPRISE PROCUREMENT & SUPPLIER DELAY RESPONSE SOP
+Document Date: 2026-10-15
+Document Classification: enterprise_document
+
+1. Purpose and Scope
+This Standard Operating Procedure (SOP) defines escalation thresholds, safety-stock replenishment rules, and graph-traceability governance when a Tier-1 supplier experiences inbound purchase order delays. In CORTEX scenario modeling, the flagship stress-test supplier is SYN-SUP-001 (Synthetic Vendor 001 (Primary Apparel & Footwear Hub)), which supplies 12 high-volume SKUs including Perfect Fitness Perfect Rip Deck (dataco:prod:365), Nike Men's Free 5.0+ Running Shoe (dataco:prod:191), Nike Men's Dri-FIT Victory Golf Polo (dataco:prod:502), and Field & Stream Sportsman 16 Gun Fire Safe (dataco:prod:1004).
+
+2. Delay Severity and Hub Routing Thresholds
+- Medium Severity (1 to 4 days delay): Logistics coordinators verify safetyStockUnits coverage at receiving hubs SYN-WH-001 (Synthetic Warehouse USCA-West), SYN-WH-003 (Synthetic Warehouse Europe-Central), SYN-WH-005 (Synthetic Warehouse LATAM-South), and SYN-WH-007 (Synthetic Warehouse APAC-East).
+- High Severity (5 to 9 days delay): Expedite partial air-freight transfers or rebalance buffer stock from secondary holding warehouses SYN-WH-002 (Synthetic Warehouse USCA-East), SYN-WH-004 (Synthetic Warehouse Europe-South), SYN-WH-006 (Synthetic Warehouse LATAM-Central), and SYN-WH-008 (Synthetic Warehouse Africa-North).
+- Critical Severity (10 or more days delay, e.g. SYN-PO-0001 at 10 days, SYN-PO-0004 at 14 days, SYN-PO-0008 at 14 days): Trigger executive allocation freeze and activate alternate supplier rerouting within 24 hours.
+
+3. Evidence and Provenance Rules
+Analysts answering delay impact questions MUST separate:
+(a) Synthetic procurement scenario nodes (dataOrigin = synthetic, anchored to 2018-01 simulated PurchaseOrder windows),
+(b) Public historical DataCo customer order records (dataOrigin = public_open_dataset, spanning 2015-01-01 to 2018-01-31), and
+(c) Demonstration records (dataOrigin = demonstration), which must remain isolated from operational conclusions.
+
